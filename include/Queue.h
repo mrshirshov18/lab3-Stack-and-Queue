@@ -1,24 +1,53 @@
 #pragma once
-#include "Stack.h"
 
-template<class A2>
-class Queue :public Stack<A2>
+template <typename T>
+class Queue
 {
-public:
-	Queue() :Stack<A2>() {}
-	Queue(Queue& lhs) :Stack<A2>(lhs) {}
-	Queue(int _size) :Stack<A2>(_size) {}
-	~Queue() {}
+    T* mem;
+    size_t sz;
+    int begin; 
+    int end;
 
-	const A2& pop() override
-	{
-		if (this->IsEmpty()) throw logic_error("Queue is empty");
-		if (Array == 0) throw logic_error("");
-		const A2* tmp = this->Array[this->first];
-		this->Array[this->first] = 0;
-		this->first++;
-		this->DataCount--;
-		return (*tmp);
-	}
+public:
+    static const size_t MAX_SIZE = 10000;
+    Queue() {
+        mem = new T[MAX_SIZE];
+        sz = 0;
+        begin = 0;
+        end = -1;
+    }
+
+    size_t size() {
+        return sz;
+    }
+    bool empty() {
+        return sz == 0;
+    }
+    bool full() {
+        return sz == MAX_SIZE;
+    }
+
+    void push(const T& x) {
+        if (full()) {
+            throw std::length_error("Queue is full");
+        }
+        end = (end + 1) % MAX_SIZE;
+        mem[end] = x;
+        sz++;
+    }
+    T top() {
+        if (empty()) {
+            throw std::out_of_range("Queue is empty");
+        }
+        return mem[begin];
+    }
+    void pop() {
+        if (empty()) {
+            throw std::out_of_range("Queue is empty");
+        }
+        begin++;
+        sz--;
+    }
+
 
 };

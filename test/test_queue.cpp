@@ -1,124 +1,76 @@
-#include "Queue.h"
-
 #include <gtest.h>
-
-TEST(Queue, can_create_Queue_with_positive_length)
-{
-	ASSERT_NO_THROW(Queue<int> v(5));
+#include "Queue.h"
+TEST(Queue, can_create_queue) {
+	ASSERT_NO_THROW(Queue<double> x);
 }
 
-TEST(Queue, can_create_Queue_with_zero_size)
-{
-	ASSERT_NO_THROW(Queue<int> v(0));
+TEST(Queue, attemp_to_push) {
+	Queue<bool> x;
+	ASSERT_NO_THROW(x.push(true));
 }
 
-TEST(Queue, throws_when_create_Queue_with_negative_length)
-{
-	ASSERT_ANY_THROW(Queue<int> v(-5));
+TEST(Queue, attemp_get_size) {
+	Queue<double> x;
+	x.push(2.41);
+	x.push(2.41);
+	x.push(2.41);
+	x.push(2.41);
+	EXPECT_EQ(4, x.size());
 }
 
-TEST(Queue, IsFull)
-{
-	Queue<int>q(1);
-	int m = 2;
-	q.push(m);
-	EXPECT_EQ(q.IsFull(), 1);
+TEST(Queue, attemp_check_empty) {
+	Queue<int> x;
+	EXPECT_TRUE(x.empty());
 }
 
-TEST(Queue, IsEmpty)
-{
-	Queue<int>q(1);
-	int m = 2;
-	q.push(m);
-	q.pop();
-	EXPECT_EQ(q.IsEmpty(), 1);
+TEST(Queue, throw_an_error_for_pop_if_queue_is_empty) {
+	Queue<int> x;
+	ASSERT_ANY_THROW(x.pop());
 }
 
-TEST(Queue, can_create_copied_Queue)
-{
-	Queue<int> v(10);
-
-	ASSERT_NO_THROW(Queue<int> v1(v));
+TEST(Queue, attemp_give_top_value) {
+	Queue<int> x;
+	x.push(1);
+	x.push(2);
+	x.push(3);
+	EXPECT_EQ(1, x.top());
 }
 
-TEST(Queue, copied_Queue_has_its_own_memory)
-{
-	Queue<int>A(5);
-	Queue<int>B(A);
-	EXPECT_NE(A.GetMemory(), B.GetMemory());
+TEST(Queue, throw_an_error_for_top_if_queue_is_empty) {
+	Queue<int>x;
+	ASSERT_ANY_THROW(x.top());
 }
 
-TEST(Queue, can_get_size)
-{
-	Queue<int> v(4);
-
-	EXPECT_EQ(4, v.GetSize());
+TEST(Queue, attempt_to_run) {
+	Queue<int>x;
+	x.push(1);
+	x.push(2);
+	x.push(3);
+	x.pop();
+	x.pop();
+	x.pop();
+	x.push(4);
+	x.push(5);
+	x.push(6);
+	x.pop();
+	x.pop();
+	x.push(7);
+	x.push(8);
+	x.push(9);
+	EXPECT_EQ(4, x.size());
 }
-
-TEST(Queue, can_get_start_index)
-{
-	Queue<int> v(4);
-
-	EXPECT_EQ(0, v.GetFirst());
-}
-
-TEST(Queue, pushAndpop)
-{
-	Queue<int>A(5);
-	int a[6];
-	for (int i = 0; i < 6; i++)
-	{
-		a[i] = 4 * i;
-	}
-	for (int i = A.GetFirst(); i < A.GetSize(); i++)
-	{
-		A.push(a[i]);
-	}
-	EXPECT_EQ(A.pop(), 0);
-}
-TEST(Queue, findInNULLQueue)
-{
-	Stack<int>a;
-	ASSERT_ANY_THROW(a.find(1));
-}
-
-TEST(Queue, findInEmptyQueue)
-{
-	Queue<int>a(1);
-	int b = 2;
-	a.push(b);
-	a.pop();
-	ASSERT_ANY_THROW(a.find(2));
-}
-TEST(Queue, findInQueue)
-{
-	Queue<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.find(1), 0);
-}
-TEST(Queue, findInQueue2)
-{
-	Queue<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.find(2), 1);
-}
-TEST(Queue, minInQueue)
-{
-	Queue<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.min(), 2);
-}
-TEST(Queue, minInEmptyQueue)
-{
-	Queue<int>a;
-	ASSERT_ANY_THROW(a.min());
+TEST(Queue, check_newsize) {
+	Queue<int> queue;
+	queue.push(1);
+	queue.push(2);
+	queue.push(3);
+	queue.push(4);
+	queue.pop();
+	queue.pop();
+	queue.push(5);
+	queue.push(6);
+	queue.push(7);
+	queue.push(8);
+	queue.push(9);
+	EXPECT_EQ(3, queue.top());
 }

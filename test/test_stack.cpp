@@ -1,129 +1,46 @@
-#include "Stack.h"
-
 #include <gtest.h>
-
-TEST(Stack, can_create_stack_with_positive_length)
-{
-	ASSERT_NO_THROW(Stack<int> v(5));
+#include "Stack.h"
+TEST(Stack, attemp_create_queue) {
+	ASSERT_NO_THROW(Stack<double> x);
 }
 
-TEST(Stack, can_create_stack_with_zero_size)
-{
-	ASSERT_NO_THROW(Stack<int> v(0));
+TEST(Stack, attemp_create_conversion_constructor) {
+	ASSERT_NO_THROW(Stack<double> x(5.2));
 }
 
-TEST(Stack, throws_when_create_stack_with_negative_length)
-{
-	ASSERT_ANY_THROW(Stack<int> v(-5));
+TEST(Stack, attemp_to_push) {
+	Stack<int> x;
+	ASSERT_NO_THROW(x.push(4));
+}
+TEST(Stack, attemp_get_size) {
+	Stack<int>x;
+	x.push(1);
+	x.push(1);
+	x.push(1);
+	EXPECT_EQ(3, x.size());
+}
+TEST(Stack, attemp_check_empty) {
+	Stack<int>x;
+	EXPECT_TRUE(x.empty());
+}
+TEST(Stack, throw_an_error_for_pop_if_stack_is_empty) {
+	Stack<int>x;
+	ASSERT_ANY_THROW(x.pop());
+}
+TEST(Stack, attemp_give_top_value) {
+	Stack<int>x(1);
+	x.push(2);
+	x.push(3);
+	EXPECT_EQ(3, x.top());
 }
 
-
-
-TEST(Stack, can_create_copied_stack)
-{
-	Stack<int> v(10);
-
-	ASSERT_NO_THROW(Stack<int> v1(v));
-}
-
-
-
-TEST(Stack, copied_stack_has_its_own_memory)
-{
-	Stack<int>A(5);
-	Stack<int>B(A);
-	EXPECT_NE(A.GetMemory(), B.GetMemory());
-}
-
-TEST(Stack, can_get_size)
-{
-	Stack<int> v(4);
-
-	EXPECT_EQ(4, v.GetSize());
-}
-
-TEST(Stack, can_get_start_index)
-{
-	Stack<int> v(4);
-
-	EXPECT_EQ(0, v.GetFirst());
-}
-
-TEST(Stack, IsFull)
-{
-	Stack<int>q(1);
-	int m = 2;
-	q.push(m);
-	EXPECT_EQ(q.IsFull(), 1);
-}
-
-TEST(Stack, IsEmpty)
-{
-	Stack<int>q(1);
-	int m = 2;
-	q.push(m);
-	q.pop();
-	EXPECT_EQ(q.IsEmpty(), 1);
-}
-
-TEST(Stack, pushAndpop)
-{
-	Stack<int>A(5);
-	int a[6];
-	for (int i = 0; i < 6; i++)
-	{
-		a[i] = 4 * i;
+TEST(Stack, attemp_test_a_lot_of_action) {
+	Stack<int>x(1);
+	for (int i = 1; i < 21; i++) {
+		x.push(i);
 	}
-	for (int i = A.GetFirst(); i < A.GetSize(); i++)
-	{
-		A.push(a[i]);
+	for (int i = 20; i > 0; i--) {
+		EXPECT_EQ(x.top(), i);
+		x.pop();
 	}
-	EXPECT_EQ(A.pop(), 16);
-}
-
-TEST(Stack, findInNULLStack)
-{
-	Stack<int>a;
-	ASSERT_ANY_THROW(a.find(1));
-}
-
-TEST(Stack, findInEmptyStack)
-{
-	Stack<int>a(1);
-	int b = 2;
-	a.push(b);
-	a.pop();
-	ASSERT_ANY_THROW(a.find(2));
-}
-TEST(Stack, findInStack)
-{
-	Stack<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.find(1), 0);
-}
-TEST(Stack, findInStack2)
-{
-	Stack<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.find(2), 1);
-}
-TEST(Stack, minInStack)
-{
-	Stack<int>a(2);
-	int b = 2;
-	int c = 3;
-	a.push(b);
-	a.push(c);
-	EXPECT_EQ(a.min(), 2);
-}
-TEST(Stack, minInEmptyStack)
-{
-	Stack<int>a;
-	ASSERT_ANY_THROW(a.min());
 }
